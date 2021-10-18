@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../Lab2"
+		},
+		{
+			"path": "."
+		}
+	],
+	"remoteAuthority": "wsl+ubuntu",
+	"settings": {}
+}
