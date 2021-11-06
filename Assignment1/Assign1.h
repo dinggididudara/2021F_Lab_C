@@ -10,10 +10,14 @@
 #define NO 1 /*NO is 1(false)*/
 #define BETMONEY 5 /*bet money is $5*/
 
-int rollNum=1; /*roll number starts with 1*/
-
-int winCount=0; /*counting win*/
-int lostCount=0; /*counting lose*/
-
-int betNum=0; /*betting number*/
-
+int leftMoney; /*left money for betting*/
+int counting; /*counting for the game*/
+/*main.c*/
+int yesno(char *question);
+/*playGame.c*/
+int rollDice();
+int playGame();
+void menu();
+void line();
+/*betMoney.c*/
+int bet();

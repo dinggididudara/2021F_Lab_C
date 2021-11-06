@@ -5,76 +5,151 @@
  * Lab Section: 014
  * Professor: Surbhi Bahri
  * Due date: 11/09/2021
- * Submission date: 11/02/2021
+ * Submission date: 11/06/2021
  */
 #include "Assign1.h"
 /**
- * Function Name: main
- * Purpose: main function display main menu
+ * Function Name: rollDice
+ * Purpose: make random number of dice
  * @parms : void
- * @return: rollNum increase one
+ * @return: random number or dice
  * @version: 1
  * @author: Soomin Lee (040899389)
  */
 int rollDice()
 {
-    int i,j,x;
-    int sumRoll = 0;  /*sum of total roll*/
-    int *dice = malloc(sizeof(int*) * betNum); /*allocate memory for dice 2d row*/
-    
-    for(i=0; i < betNum;i++)
-    {
-        dice[i] = malloc(sizeof(int*) * DICETOTAL); /*allocate memory for dice 2d array column*/
-        for (j = 0; j < DICETOTAL; j++)
-        {
-            dice[j] = rand(1, 6); /*random number for dice array*/
-            sumRoll += dice[j];   /*total roll sum*/
-        } /*for end*/
-    } /*for end*/                        
-   
-    return sumRoll;         /*increase roll number*/
+    return ((rand() % 6) + 1); /*return random number of dice*/
 } /*rollDice end*/
 /**
- * Function Name: main
- * Purpose: main function display main menu
+ * Function Name: playGame
+ * Purpose: play game with rolling dice
  * @parms : void
- * @return: 0 / EXIT_SUCCESS
+ * @return: WON(0) / LOST(1) / invalid,fail(-1)
  * @version: 1
  * @author: Soomin Lee (040899389)
  */
 int playGame()
 {
-    int num = rollDice(); /*total number of roll*/
-    char* question = "Another Game? [y/n] ";
-    int a = yesno(question); /*scan option*/
-    if(a==YES) /*if yes*/
-    {
-        
-    }
-    else if(a==NO) /*if no*/
-    {
+    int rollNum = 1; /*roll number starts with 0*/
+    int a = YES;     /*answer for yesno question*/
+    int b = 0;       /*temporary for checkSum*/
+    int t = 0;
+    int pm = 0;            /*point match*/
+    int pDice[2] = {0, 0}; /*player dice array*/
+    int cDice[2] = {0, 0}; /*computer dice array*/
+    int pSum;              /*sum of player's dices*/
+    int cSum;              /*sum of computer's dices*/
 
-    } /*if-else end*/
+    menu(); /*display menu one time*/
+    while (1)
+    {
+        pDice[0] = rollDice(); /*player rolls 1*/
+        pDice[1] = rollDice(); /*player rolls 2*/
+        cDice[0] = rollDice(); /*computer rolls 1*/
+        cDice[1] = rollDice(); /*computer rolls 2*/
+        pSum = pDice[0] + pDice[1];
+        cSum = cDice[0] + cDice[1];
+        if(rollNum==1) /*first roll's point match will be player's sum*/
+        {
+            pm = pSum;
+        } /*if end*/
+        pm=pSum;
+        printf("  %8d  %12d    %12d   %15d    %20d\n", rollNum, pDice[0], pDice[1], pSum, pm);
+
+        if (pSum == 7 || pSum == 11 || pSum == pm) /*if sum is 7 or 11, player win*/
+        {
+            if (counting == 0)
+            {
+                printf("Congratulations you roll %d and win at your first try!!!\n\n", pSum);
+            }
+            else
+            {
+                printf("Congratulations you roll %d and win!!!\n\n", pSum);
+            } /*if-else end*/
+            pm = pSum;
+            return WON;
+        }
+        else if (pSum == 2 || pSum == 3 || pSum == 12) /*if sum is 2, 3 or 12, player lose*/
+        {
+            if (rollNum == 1)
+            {
+                printf("Sorry, you roll %d and you loose at your first try\n\n", pSum);
+            }
+            else
+            {
+                printf("Sorry, you roll %d and you loose\n\n", pSum);
+            }
+            pm = pSum;
+            return LOST;
+        }
+        else if (cSum == 7 || cSum == 11 || cSum == pm) /*if sum is 2, 3 or 12, player lose*/
+        {
+            if (counting == 0)
+            {
+                printf("Sorry, computer roll %d and you loose at your first try\n\n", cSum);
+            }
+            else
+            {
+                printf("Sorry, computer roll %d and you loose\n\n", cSum);
+            }
+            pm = cSum;
+            return LOST;
+        }
+        else if (cSum == 2 || cSum == 3 || cSum == 12) /*if sum is 2, 3 or 12*/
+        {
+            if (counting == 0)
+            {
+                printf("Congratulations computer roll %d and you win at your first try!!!\n\n", cSum);
+            }
+            else
+            {
+                printf("Congratulations computer roll %d and you win!!!\n\n", cSum);
+            }
+            pm = cSum;
+            return WON;
+        }
+        else
+        {
+            rollNum++; /*increase roll number*/
+            if (pm == 0)
+            {
+                pm = pSum; /*sum will be point match*/
+            }              /*if end*/
+        }                  /*if-else end*/
+    }                      /*while end*/
+
+    return -1; /*return -1*/
 } /*playGame end*/
+
 /**
- * Function Name: sumUp
- * Purpose: main function display main menu
+ * Function Name: menu
+ * @purpose: print menu for display
  * @parms : void
- * @return: s sum of rolls
+ * @return: void
  * @version: 1
  * @author: Soomin Lee (040899389)
  */
-int checkSum(int s)
+void menu()
 {
-    if (s == 7 || s == 11) /*if sum is 7 or 11, player win*/
+    line();
+    printf("  ROLL NUM \t  DICE#1 \t  DICE#2 \t TOTAL ROLL \t\t   POINT MATCH\n");
+    line();
+} /*menu end*/
+
+/**
+ * Function Name: line
+ * @purpose: print line for display menu
+ * @parms : void
+ * @return: void
+ * @version: 1
+ * @author: Soomin Lee (040899389)
+ */
+void line()
+{
+    int i;
+    for (i = 0; i < 95; i++)
     {
-        updateMoney(WON); /*update money*/
-        return 0; /*return 0(true)*/
-    }
-    else if (s == 2 || s == 3 || s == 12) /*if sum is 2, 3 or 12, player lose*/
-    {
-        updateMoney(LOST); /*update money*/
-        return 0; /*return 0(true)*/
-    } /*if-else end*/
-    return -1; /*return sum*/
-}
+        printf("-");
+    }             /*for end*/
+    printf("\n"); /*new line*/
+} /*line end*/
