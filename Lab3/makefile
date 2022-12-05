@@ -1,14 +1,14 @@
 # makefile for lab3
-FILE=lab3_srs
+FILE=lab3
 CC = gcc
-CFLAGS = -ansi -pedantic -Wall -w
+CC_FLAGS = -ansi -pedantic -Wall -w
 
-$(FILE) : lab3_srs.o
-	$(CC) $(CFLAGS) -o $(FILE) lab3_srs.o
+$(FILE) : lab3.o
+	$(CC) $(CC_FLAGS) -o $(FILE) lab3.o
 	./$(FILE)
 
-lab3.o : lab3_srs.c
-	$(CC) $(CFLAGS) -c -o lab3_srs.o lab3_srs.c
+lab3.o : lab3.c
+	$(CC) $(CC_FLAGS) -c -o lab3.o lab3.c
 
 clean:
 	rm *.o 

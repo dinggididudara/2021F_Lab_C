@@ -17,16 +17,21 @@
  * Quthor : Soomin Lee
  */
 int main(){
-    card *card = (card*) malloc (sizeof(card));
+    /*card *card = (card*) malloc (sizeof(card));*/
+    /*display single card*/
     display();
+    /*display two cards*/
     int a = compareTwoCards();
-    if(a==TRUE)
+    if(a==TRUE) /*1st card won*/
     {
         printf("1st card won");
     }
-    else if(a==FALSE)
+    else if(a==FALSE) /*2nd card won*/
     {
         printf("2nd card won");
     }
+    /*2 players are playing game, dealing*/
+    player p1, p2;
+    
     return EXIT_SUCCESS;
-}
+} /*main end*/

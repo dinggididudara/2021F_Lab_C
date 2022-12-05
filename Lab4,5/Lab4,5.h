@@ -19,10 +19,10 @@ typedef struct card
 {
     /* Ace, King, Queen, Jack, 2-10 */
     /* A > K > Q > J > 10 > 9 > 8 > 7 > 6 > 5 > 4 > 3 > 2 */
-    char *face[13] = {"A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"};
+    char *faceArr[13] = {"A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"};
     /*Spades, Hearts, Diamonds, Clubs*/
     /*S > H > D > C*/
-    char suit[4] = {'S', 'H', 'D', 'C'};
+    char suitArr[4] = {'S', 'H', 'D', 'C'};
 } card;
 /**
  * Struct Name: deck
@@ -36,12 +36,24 @@ typedef struct deck
 {
     int i,j;
     /*deck 2d array : 13 face + 4 suit*/
-    char *deck[13][4]; 
+    char *deckArr[13][4]; 
     for(i=0;i<13;i++)
     {
         for(j=0;j<4;j++)
         {
-            deck[i][j] = strcpy(card->face[i]+card.suit[j]);
+            deckArr[i][j] = strcpy(card->faceArr[i]+card.suitArr[j]);
         } /*for end*/
     } /*for end*/
 } deck;
+/**
+ * Struct Name: player
+ * Purpose: 
+ * @parms 
+ * @return 
+ * Version : 1
+ * Quthor : Soomin Lee
+ */
+typedef struct player
+{
+   char *playerCard[2][2];
+} player;
